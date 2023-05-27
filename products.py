@@ -65,3 +65,21 @@ class Product:
         except ValueError:
             print(f"Not enough {self.name} in stock!")
             return 0
+
+
+class NonStockedProduct(Product):
+    def __init__(self, name, price):
+        super().__init__(name, price, quantity=0)
+
+    def buy(self, quantity):
+        return float(self.price * quantity)
+
+    def show(self):
+        return f"{self.name}, Price:{self.price}"
+
+
+class LimitedProduct(Product):
+    def __init__(self, name, price, quantity, maximum):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+

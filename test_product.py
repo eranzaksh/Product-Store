@@ -36,3 +36,12 @@ def test_changes_to_quantity():
 def test_buy_larger_quantity_then_exists():
     a_product = products.Product("PC", price=500, quantity=300)
     assert a_product.buy(400) == 0
+
+
+def test_no_stock_needed_product():
+    assert products.NonStockedProduct("An Item", price=1450)
+
+
+def test_no_stock_needed_product_buy():
+    a_product = products.NonStockedProduct("IBM", price=1500)
+    assert a_product.buy(500)
