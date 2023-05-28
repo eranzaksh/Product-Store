@@ -108,7 +108,6 @@ def main():
                     products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
                     ]
     best_buy = store.Store(product_list)
-<<<<<<< HEAD
 
     thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
     second_half_price = promotions.SecondHalfPrice("Second Half price!")
@@ -118,12 +117,10 @@ def main():
     product_list[1].set_promotion(third_one_free)
     product_list[2].set_promotion(second_half_price)
 
-=======
     thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
     second_half_price = promotions.SecondHalfPrice("Second Half price!")
     product_list[0].set_promotion(thirty_percent)
     product_list[2].set_promotion(second_half_price)
->>>>>>> 1e11399a7380cc6c99d44ae464ba902dfb4a2e1c
     start(best_buy)
 
 
