@@ -1,6 +1,6 @@
 class Store:
     """
-  Creatinga store object
+  Creating a store object
   """
 
     def __init__(self, list_of_products):
@@ -52,8 +52,9 @@ class Store:
     Order products based on the shopping list
     """
         total_price = 0
-        for product in shopping_list:
-            total_price += (product[0].buy(product[1]))
+        for item in shopping_list:
+            product, quantity = item
+            total_price += product.buy(quantity)
         return float(total_price)
 
     @staticmethod
@@ -62,3 +63,7 @@ class Store:
     Check the inventory of a specific object
     """
         return product.get_quantity()
+
+    @staticmethod
+    def check_limitation(product):
+        return product.get_maximum_allowed

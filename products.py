@@ -52,7 +52,7 @@ class Product:
         """
     returns the name, price, and quantity of a product
     """
-        return f"{self.name}, Price:{self.price}, Quantity:{self.quantity}"
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity):
         """
@@ -69,17 +69,28 @@ class Product:
 
 class NonStockedProduct(Product):
     def __init__(self, name, price):
-        super().__init__(name, price, quantity=0)
+        super().__init__(name, price, quantity=float('inf'))
 
     def buy(self, quantity):
-        return float(self.price * quantity)
+        total_price = self.price * quantity
+        return float(total_price)
 
     def show(self):
-        return f"{self.name}, Price:{self.price}"
+        return f"{self.name}, Price: {self.price}"
 
 
 class LimitedProduct(Product):
     def __init__(self, name, price, quantity, maximum):
         super().__init__(name, price, quantity)
         self.maximum = maximum
+
+    def buy(self, quantity):
+        if quantity > self.maximum:
+            print(f"{self.name} Can't be ordered more then {self.maximum} at a time!")
+            return 0
+        return super().buy(quantity)
+
+    def get_maximum_allowed(self):
+        return int(self.maximum)
+
 

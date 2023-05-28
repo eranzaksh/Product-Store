@@ -45,3 +45,9 @@ def test_no_stock_needed_product():
 def test_no_stock_needed_product_buy():
     a_product = products.NonStockedProduct("IBM", price=1500)
     assert a_product.buy(500)
+
+
+def test_limited_product():
+    a_product = products.LimitedProduct("Nvidia", price=1500, quantity=500, maximum=1)
+    with pytest.raises(Exception):
+        a_product.buy(20)
