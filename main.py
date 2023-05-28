@@ -1,6 +1,7 @@
 import sys
 import products
 import store
+import promotions
 
 
 def quit_program():
@@ -19,7 +20,7 @@ def make_order(store_obj):
     list_products(store_obj)
     print("\n*****Press '0' anytime to finish the order*****\n")
     all_products = store_obj.get_all_products()
-    user_order = {1: 0, 2: 0, 3: 0}
+    user_order = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
     overall_payment = 0
     product_payment = 0
     while True:
@@ -42,7 +43,8 @@ def make_order(store_obj):
     if sum(user_order.values()) != 0:
         # Check if there are any items at all.
         for orders, quantity in user_order.items():
-            if quantity > (store_obj.check_inventory(all_products[orders - 1])):
+            if quantity > (store_obj.check_inventory(all_products[orders - 1])) \
+                    or user_order[5] > store_obj.check_limitation(all_products[4]):
                 print("Not enough quantity in store, order canceled!")
                 return 0
         print("\n***** Total Order *****")
@@ -101,9 +103,20 @@ def main():
     """
     product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
                     products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                    products.Product("Google Pixel 7", price=500, quantity=250)
+                    products.Product("Google Pixel 7", price=500, quantity=250),
+                    products.NonStockedProduct("Windows License", price=125),
+                    products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
                     ]
     best_buy = store.Store(product_list)
+
+    thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
+    second_half_price = promotions.SecondHalfPrice("Second Half price!")
+    third_one_free = promotions.ThirdOneFree("Third One Free!")
+
+    product_list[0].set_promotion(thirty_percent)
+    product_list[1].set_promotion(third_one_free)
+    product_list[2].set_promotion(second_half_price)
+
     start(best_buy)
 
 

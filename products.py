@@ -1,7 +1,11 @@
+import promotions
+
+
 class Product:
     """
   Creating a product object
   """
+    promotion = None
 
     def __init__(self, name, price, quantity):
         if not name or price < 0 or quantity < 0:
@@ -52,7 +56,9 @@ class Product:
         """
     returns the name, price, and quantity of a product
     """
-        return f"{self.name}, Price:{self.price}, Quantity:{self.quantity}"
+        if self.get_promotion():
+            return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Special Promotion: *{self.get_promotion().name}*"
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity):
         """
@@ -60,22 +66,33 @@ class Product:
     """
         try:
             self.set_quantity(quantity)
-            total_price = self.price * quantity
+            promotion = self.get_promotion()
+            if promotion:
+                total_price = promotion.apply_promotion(self, quantity)
+            else:
+                total_price = self.price * quantity
             return float(total_price)
         except ValueError:
             print(f"Not enough {self.name} in stock!")
             return 0
 
+    def get_promotion(self):
+        return self.promotion
+
+    def set_promotion(self, promotion):
+        self.promotion = promotion
+
 
 class NonStockedProduct(Product):
     def __init__(self, name, price):
-        super().__init__(name, price, quantity=0)
+        super().__init__(name, price, quantity=float('inf'))
 
     def buy(self, quantity):
-        return float(self.price * quantity)
+        total_price = self.price * quantity
+        return float(total_price)
 
     def show(self):
-        return f"{self.name}, Price:{self.price}"
+        return f"{self.name}, Price: {self.price}"
 
 
 class LimitedProduct(Product):
@@ -83,3 +100,11 @@ class LimitedProduct(Product):
         super().__init__(name, price, quantity)
         self.maximum = maximum
 
+    def buy(self, quantity):
+        if quantity > self.maximum:
+            print(f"{self.name} Can't be ordered more then {self.maximum} at a time!")
+            return 0
+        return super().buy(quantity)
+
+    def get_maximum_allowed(self):
+        return int(self.maximum)
