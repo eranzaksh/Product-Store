@@ -44,7 +44,11 @@ class SecondHalfPrice(Promotion):
                 discounted_price += product.price * 1
                 return discounted_price
         else:
+<<<<<<< HEAD
             return normal_price
+=======
+            return None
+>>>>>>> 1e11399a7380cc6c99d44ae464ba902dfb4a2e1c
 
 
 class ThirdOneFree(Promotion):
@@ -52,6 +56,7 @@ class ThirdOneFree(Promotion):
         super().__init__(name)
 
     def apply_promotion(self, product, quantity):
+<<<<<<< HEAD
         normal_price = product.price * quantity
         if quantity > 2:
             if quantity % 3 == 0:
@@ -64,4 +69,6 @@ class ThirdOneFree(Promotion):
             return discounted_price
         else:
             return normal_price
+=======
+>>>>>>> 1e11399a7380cc6c99d44ae464ba902dfb4a2e1c
 

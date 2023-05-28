@@ -1,6 +1,9 @@
 import promotions
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1e11399a7380cc6c99d44ae464ba902dfb4a2e1c
 class Product:
     """
   Creating a product object
@@ -56,8 +59,11 @@ class Product:
         """
     returns the name, price, and quantity of a product
     """
+<<<<<<< HEAD
         if self.get_promotion():
             return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Special Promotion: *{self.get_promotion().name}*"
+=======
+>>>>>>> 1e11399a7380cc6c99d44ae464ba902dfb4a2e1c
         return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity):
