@@ -1,7 +1,9 @@
+import promotions
 class Product:
     """
   Creating a product object
   """
+    promotion = None
 
     def __init__(self, name, price, quantity):
         if not name or price < 0 or quantity < 0:
@@ -60,11 +62,21 @@ class Product:
     """
         try:
             self.set_quantity(quantity)
-            total_price = self.price * quantity
+            promotion = self.get_promotion()
+            if promotion:
+                total_price = promotion.apply_promotion(self, quantity)
+            else:
+                total_price = self.price * quantity
             return float(total_price)
         except ValueError:
             print(f"Not enough {self.name} in stock!")
             return 0
+
+    def get_promotion(self):
+        return self.promotion
+
+    def set_promotion(self, promotion):
+        self.promotion = promotion
 
 
 class NonStockedProduct(Product):
@@ -92,5 +104,3 @@ class LimitedProduct(Product):
 
     def get_maximum_allowed(self):
         return int(self.maximum)
-
-

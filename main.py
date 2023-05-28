@@ -1,6 +1,7 @@
 import sys
 import products
 import store
+import promotions
 
 
 def quit_program():
@@ -107,6 +108,8 @@ def main():
                     products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
                     ]
     best_buy = store.Store(product_list)
+    thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
+    product_list[0].set_promotion(thirty_percent)
     start(best_buy)
 
 
