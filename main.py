@@ -42,7 +42,8 @@ def make_order(store_obj):
     if sum(user_order.values()) != 0:
         # Check if there are any items at all.
         for orders, quantity in user_order.items():
-            if quantity > (store_obj.check_inventory(all_products[orders - 1])):
+            if quantity > (store_obj.check_inventory(all_products[orders - 1])) \
+                    or user_order[5] > store_obj.check_limitation(all_products[4]):
                 print("Not enough quantity in store, order canceled!")
                 return 0
         print("\n***** Total Order *****")

@@ -66,4 +66,4 @@ class Store:
 
     @staticmethod
     def check_limitation(product):
-        return product.get_maximum_allowed
+        return product.get_maximum_allowed()
